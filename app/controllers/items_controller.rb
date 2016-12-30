@@ -1,19 +1,22 @@
 class ItemsController < ApplicationController
-  def index
-  	@selectedCategory = nil
-  	@categories = Category.all
-  	@items = RegistryItem.all.where(category: @selectedCategory)
-  end
   def create
-  	#Get attributes from parameters
-  	itemname = params[:name]
+  	# get the item information from the parameters
+  	item_name = params[:name]
   	needed = params[:needed]
-  	pledged = params[:pledged]
-  	picture = params[:picture]
-  	category = params[:category]
+  	image = params[:image]
+  	description = params[:description]
 
-  	#Initialize new registry item
-  	newItem = RegistryItems.new(name: itemname,needed: needed, pledged: pledged, picture: picture)
+  	newItem = RegistryItem.new(name: item_name,needed: needed, pledged: 0, picture: image, description: description)
   	newItem.save
+
+  	# redirect to management interface
+  	redirect_to action: "manage"
+  end
+
+  def delete
+  	id = params[:id]
+	item = RegistryItem.find(id)
+	item.delete()
+	item.save()
   end
 end

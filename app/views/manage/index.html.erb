@@ -1,0 +1,103 @@
+<head>
+	<title>Item Management</title>
+
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Bootstrap Core CSS -->
+    <%= stylesheet_link_tag "bootstrap.min.css" %> 
+
+    <!-- Custom CSS -->
+    <%= stylesheet_link_tag "shop-homepage.css" %> 
+      <!-- jQuery -->
+    <%= javascript_include_tag "jquery.js" %>
+    <%= javascript_include_tag "bootstrap.min.js" %>
+    
+</head>
+<body>
+	<!-- Navigation -->
+    
+
+	<div class="container">
+        <div class="row">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="btn-lg btn btn-primary" data-toggle="modal" data-target="#myModal">Add</div>
+                </div>
+                <% @items.each do |item| %>
+                    <div id="item<%= item.id %>" class="col-sm-4 col-lg-4 col-md-4">
+                        <div class="thumbnail">
+                            <%= image_tag(item.picture.url(:thumb))%>
+                            <div class="caption">
+                                <h4><a href="#"><%= item.name %></a>
+                                </h4>
+                                <p><%= item.description %></p>
+                                <div class="ratings">
+	                                <a id="<%= item.id %>" class="pull-right close">Delete</a>
+	                            </div>
+                            </div>
+                        </div>
+                    </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+
+    </div>
+    <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Modal Header</h4>
+          </div>
+          <div class="modal-body">
+            <%= form_tag("/items", method: "post", multipart: true, action: :upload, id: "itemForm") do %>
+              <div class="field">
+                <%= label_tag :name %><br>
+                <%= text_field_tag :name %>
+              </div>
+              <div class="field">
+                <%= label_tag :description %><br>
+                <%= text_area_tag :description %>
+              </div>
+              <div class="field">
+                <%= label_tag :image %><br>
+                <%= file_field_tag :image %>
+              </div>
+              <div class="field">
+                <%= label_tag :needed %>
+                <%= number_field_tag :needed %>
+              <div class="modal-footer">
+                <button type="button" id="submitItem" class="btn btn-default" data-dismiss="modal">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            <% end %>
+          </div>
+          
+        </div>
+
+      </div>
+    </div>
+    <script>
+    	$(".close").click(function(e){
+		    $.ajax({
+		    	url: "/delete;", 
+		    	data: {"id": e.target.id},
+		    	success: function(result){
+		    		console.log('Success');
+                    $("#item" + e.target.id).addClass("hidden");
+		    	},
+		    	error: function(result) {
+		    		console.log('Failure');
+		    	}
+			});
+		});
+        $("#submitItem").click(function(e) {
+            $("#itemForm").submit();
+            window.location.reload();
+        });
+    </script>
+</body>
