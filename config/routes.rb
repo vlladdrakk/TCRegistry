@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   get 'items/index'
   post 'items' => 'items#create'
+  update 'items' => 'items#update'
 
   get 'welcome/index'
 
