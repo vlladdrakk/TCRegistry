@@ -19,4 +19,8 @@ class ItemsController < ApplicationController
 	item.delete()
 	item.save()
   end
+
+  def update
+  	
+  end
 end
