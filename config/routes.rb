@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
   get 'manage/index'
 
-  get 'items/index'
   post 'items' => 'items#create'
-  update 'items' => 'items#update'
+  post 'items/update' => 'items#update'
+  get 'items' => 'items#get'
 
-  get 'welcome/index'
+  get 'welcome/:selection' => 'welcome#index'
 
   root 'welcome#index'
 
