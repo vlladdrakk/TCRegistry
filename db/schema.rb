@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161230144801) do
+ActiveRecord::Schema.define(version: 20170106011400) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -30,6 +30,8 @@ ActiveRecord::Schema.define(version: 20161230144801) do
     t.string   "picture_content_type"
     t.integer  "picture_file_size"
     t.datetime "picture_updated_at"
+    t.integer  "category_id"
+    t.index ["category_id"], name: "index_registry_items_on_category_id"
   end
 
 end
