@@ -50,7 +50,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Modal Header</h4>
+            <h4 class="modal-title">Add New Item</h4>
           </div>
           <div class="modal-body">
             <%= form_tag("/items", method: "post", multipart: true, action: :upload, id: "itemForm") do %>
@@ -61,6 +61,10 @@
               <div class="field">
                 <%= label_tag :description %><br>
                 <%= text_area_tag :description %>
+              </div>
+              <div class='field'>
+                <%= label_tag :category %><br>
+                <%= select_tag "category", options_from_collection_for_select(@categories, "id", "name") %>
               </div>
               <div class="field">
                 <%= label_tag :image %><br>
@@ -136,6 +140,17 @@
             window.location.reload();
         });
         $(".edit").click(function(e) {
+            console.log("sending get request");
+            $.ajax({
+                url: "/items;",
+                data: {"id": e.target.id},
+                success: function(data) {
+                    console.log(data);
+                },
+                error: function(data) {
+                    console.log("error retrieving item");
+                }
+            })
             $("#editModal").modal("show");
         });
     </script>
