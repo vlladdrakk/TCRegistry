@@ -30,8 +30,12 @@
                         <div class="thumbnail">
                             <%= image_tag(item.picture.url(:thumb))%>
                             <div class="caption">
-                                <h4><a href="#"><%= item.name %></a>
+                                <h4>
+                                  <a href="#"><%= item.name %></a>
                                 </h4>
+                                <h5>
+                                  <span><%= @categories.find(item.category_id).name %></span>
+                                </h5>
                                 <p><%= item.description %></p>
                                 <div class="ratings">
 	                                <a id="<%= item.id %>" class="pull-right close delete">Delete</a>
