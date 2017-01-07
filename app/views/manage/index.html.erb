@@ -102,6 +102,10 @@
                 <%= label_tag :description %><br>
                 <%= text_area_tag :description %>
               </div>
+               <div class='field'>
+                <%= label_tag :category %><br>
+                <%= select_tag "category", options_from_collection_for_select(@categories, "id", "name") %>
+              </div>
               <div class="field">
                 <%= label_tag :image %><br>
                 <%= file_field_tag :image %>
