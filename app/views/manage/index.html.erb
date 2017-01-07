@@ -105,11 +105,13 @@
                 <%= select_tag "edit_category", options_from_collection_for_select(@categories, "id", "name") %>
               </div>
               <div class="field">
-                <%= label_tag :edit_image %><br>
+                <%= label_tag :edit_image %>
+                <span> (leave blank to remain unchanged)</span>
+                <br>
                 <%= file_field_tag :edit_image %>
               </div>
               <div class="field">
-                <%= label_tag :edit_needed %>
+                <%= label_tag :edit_needed %><br>
                 <%= number_field_tag :edit_needed, 0 %>
               </div>
               <div class="modal-footer">
@@ -164,7 +166,6 @@
           $("#edit_name").val(data.name);
           $("#edit_description").val(data.description);
           $("#edit_category").val(parseInt(data.category_id));
-          $("#edit_image").val(data.image);
           $("#edit_needed").val(data.needed);
           $("#edit_item_id").val(data.id);
         }
