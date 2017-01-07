@@ -80,9 +80,7 @@
               </div>
             <% end %>
           </div>
-          
         </div>
-
       </div>
     </div>
     <div id="editModal" class="modal fade" role="dialog">
@@ -93,42 +91,41 @@
             <h4 class="modal-title">Edit Item</h4>
           </div>
           <div class="modal-body">
-            <%= form_tag("/items", method: "update", multipart: true, action: :upload, id: "updateForm") do %>
+            <%= form_tag("/items/update", method: "post", multipart: true, action: :upload, id: "updateForm") do %>
               <div class="field">
-                <%= label_tag :name %><br>
-                <%= text_field_tag :name %>
+                <%= label_tag :edit_name %><br>
+                <%= text_field_tag :edit_name %>
               </div>
               <div class="field">
-                <%= label_tag :description %><br>
-                <%= text_area_tag :description %>
+                <%= label_tag :edit_description %><br>
+                <%= text_area_tag :edit_description %>
               </div>
                <div class='field'>
-                <%= label_tag :category %><br>
-                <%= select_tag "category", options_from_collection_for_select(@categories, "id", "name") %>
+                <%= label_tag :edit_category %><br>
+                <%= select_tag "edit_category", options_from_collection_for_select(@categories, "id", "name") %>
               </div>
               <div class="field">
-                <%= label_tag :image %><br>
-                <%= file_field_tag :image %>
+                <%= label_tag :edit_image %><br>
+                <%= file_field_tag :edit_image %>
               </div>
               <div class="field">
-                <%= label_tag :needed %>
-                <%= number_field_tag :needed, 0 %>
+                <%= label_tag :edit_needed %>
+                <%= number_field_tag :edit_needed, 0 %>
               </div>
               <div class="modal-footer">
+                <input id="edit_item_id" name="item_id" class="hidden"/>
                 <button type="button" id="updateItemBtn" class="btn btn-default" data-dismiss="modal">Save</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               </div>
             <% end %>
           </div>
-          
         </div>
-
       </div>
     </div>
     <script>
     	$(".delete").click(function(e){
 		    $.ajax({
-		    	url: "/delete;", 
+		    	url: "/delete;",
 		    	data: {"id": e.target.id},
 		    	success: function(result){
 		    		console.log('Success');
@@ -143,13 +140,17 @@
             $("#itemForm").submit();
             window.location.reload();
         });
+        $("#updateItemBtn").click(function(e) {
+          $("#updateForm").submit();
+          window.location.reload();
+        })
         $(".edit").click(function(e) {
             console.log("sending get request");
             $.ajax({
                 url: "/items;",
                 data: {"id": e.target.id},
                 success: function(data) {
-                    console.log(data);
+                  setEditFields(data);
                 },
                 error: function(data) {
                     console.log("error retrieving item");
@@ -157,5 +158,15 @@
             })
             $("#editModal").modal("show");
         });
+
+        function setEditFields(data) {
+          console.log(data);
+          $("#edit_name").val(data.name);
+          $("#edit_description").val(data.description);
+          $("#edit_category").val(parseInt(data.category_id));
+          $("#edit_image").val(data.image);
+          $("#edit_needed").val(data.needed);
+          $("#edit_item_id").val(data.id);
+        }
     </script>
 </body>
