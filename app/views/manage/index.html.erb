@@ -12,6 +12,7 @@
       <!-- jQuery -->
     <%= javascript_include_tag "jquery.js" %>
     <%= javascript_include_tag "bootstrap.min.js" %>
+    <%= javascript_include_tag "jquery.form.js" %>
     
 </head>
 <body>
@@ -143,8 +144,17 @@
             window.location.reload();
         });
         $("#updateItemBtn").click(function(e) {
-          $("#updateForm").submit();
-          window.location.reload();
+          var res = $("#updateForm").ajaxSubmit({
+            url: "/items/update",
+            dataType: "json",
+            success: function(data, textStatus, jqXHR) 
+            {
+                if (data.result)
+                  window.location.reload();
+                else
+                  alert("Update Failed")
+            }
+          });
         })
         $(".edit").click(function(e) {
             console.log("sending get request");

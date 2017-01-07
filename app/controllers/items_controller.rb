@@ -31,10 +31,30 @@ class ItemsController < ApplicationController
   def get
     id = params[:id]
     item = RegistryItem.find(id)
-    render json: item.as_json
-  end  
+    item_json = item.as_json
+    item_json['image_url'] = item.get_url
+    render json: item_json
+  end
 
   def update
-    render "testing"
+    item_name = params[:edit_name]
+    item_description = params[:edit_description]
+    item_category = params[:edit_category]
+    item_image = params[:edit_image]
+    item_needed = params[:edit_needed]
+    item_id = params[:item_id]
+    item = RegistryItem.find(item_id)
+    begin
+      item.update(
+        name: item_name,
+        needed: item_needed,
+        category_id: item_category,
+        picture: item_image,
+        description: item_description
+      )
+      render json: {result: true}
+    rescue
+      render json: {result: false}
+    end
   end
 end
