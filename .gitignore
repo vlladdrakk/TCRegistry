@@ -2,4 +2,4 @@ tmp/
 public/system/
 log/
 db/development.sqlite3
-log/*
+log/development.log
