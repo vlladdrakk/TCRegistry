@@ -53,9 +53,9 @@
                                   <span><%= @categories.find(item.category_id).name unless item.category_id.nil? %></span>
                                 </h5>
                                 <p><%= item.description %></p>
-                                <div class="ratings">
-                                  <a id="<%= item.id %>" class="pull-right close delete">Delete</a>
-                                    <a id="<%= item.id %>" class="pull-left close edit">Edit</a>
+                                <div id="itemControl" class="row">
+                                  <a id="<%= item.id %>" onclick="deleteItem(this)" class="pull-right close delete">Delete</a>
+                                  <a id="<%= item.id %>" onclick="editItem(this)" class="pull-left close edit">Edit</a>
                               </div>
                             </div>
                         </div>
@@ -152,7 +152,7 @@
                 </div>
                 <div class="row">
                   <div class="container modal-footer col-xs-12">
-                    <button type="button" id="createCategory" class="btn btn-default">Save</button>
+                    <button type="button" id="updateItem" onclick="updateItem()" class="btn btn-default">Save</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                   </div>
                 </div>

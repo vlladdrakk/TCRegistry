@@ -1,14 +1,15 @@
 function deleteCategory(entity) {
   var category_id = entity.id.split('-')[1];
   var confirmed = confirm("Deleting this category will also delete all of the items within it, do you want to continue?")
-  console.log(confirmed);
+
   if (confirmed) {
     $.ajax({
       url: '/categories',
       method: 'DELETE',
       data: {id: category_id},
       success: function(response) {
-        window.location.reload();
+        var base_url = window.location.toString().split('?')[0];
+        window.location = base_url;
       },
       error: function(error) {
         console.log(error);
@@ -17,30 +18,32 @@ function deleteCategory(entity) {
   }
 }
 
-$(".delete").click(function(e){
+function deleteItem(element){
   $.ajax({
     url: "/delete;",
-    data: {"id": e.target.id},
+    data: {"id": element.id},
     success: function(result){
-      console.log('Success');
-              $("#item" + e.target.id).addClass("hidden");
+      $("#item" + element.id).addClass("hidden");
     },
     error: function(result) {
       console.log('Failure');
     }
   });
-});
+};
 
-$("#submitItem").click(function(e) {
+function submitItem() {
+  var category_id = $("#category").val();
+  var base_url = window.location.toString().split('?')[0];
   $("#itemForm").submit();
-  window.location.reload();
-});
 
-$("#updateItemBtn").click(function(e) {
+  window.location = base_url + "?selection=" + category_id;
+};
+
+function updateItem() {
   var res = $("#updateForm").ajaxSubmit({
     url: "/items/update",
     dataType: "json",
-    success: function(data, textStatus, jqXHR) 
+    success: function(data, textStatus, jqXHR)
     {
       console.log(data);
       if (data.result) {
@@ -53,13 +56,13 @@ $("#updateItemBtn").click(function(e) {
       }
     }
   });
-})
+};
 
-$(".edit").click(function(e) {
+function editItem(element) {
   console.log("sending get request");
   $.ajax({
     url: "/items;",
-    data: {"id": e.target.id},
+    data: {"id": element.id},
     success: function(data) {
       setEditFields(data);
     },
@@ -68,7 +71,7 @@ $(".edit").click(function(e) {
     }
   });
   $("#editModal").modal("show");
-});
+};
 
 function createCategory(event) {
   console.log('test');
