@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   get 'manage' => 'manage#index'
 
   get 'delete' => 'items#delete'
+
+  post 'categories' => 'categories#create'
+  delete 'categories' => 'categories#destroy'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
  
