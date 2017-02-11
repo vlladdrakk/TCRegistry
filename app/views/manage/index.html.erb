@@ -11,19 +11,39 @@
     <%= javascript_include_tag "jquery.js" %>
     <%= javascript_include_tag "bootstrap.min.js" %>
     <%= javascript_include_tag "jquery.form.js" %>
-    
+    <%= javascript_include_tag "welcome.js" %>
+    <%= javascript_include_tag "manage.js" %>
 </head>
 <body>
-	<!-- Navigation -->
-    
 
-	<div class="container">
+
+
+  <!-- Page Content -->
+    <div class="container">
         <div class="row">
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="btn-lg btn btn-primary" data-toggle="modal" data-target="#myModal">Add</div>
+          <div class="row">
+            <a class="btn list-group-item text-center" data-toggle="modal" data-target="#itemModal">New Item</a>
+            <a class="btn list-group-item text-center" data-toggle="modal" data-target="#categoryModal">New Category</a>
+          </div>
+
+            <div class="col-md-3">
+                <p class="lead">Categories</p>
+                <div id="categoryList" class="list-group">
+                  <% @categories.each do |category| %>
+                    <div>
+                      <button id="<%= category.id %>" onclick="clickedCategory(this)" class="btn btn-primary1 text-center col-xs-8 category-name"><%= category.name %></button>
+                      <button id="delete-<%= category.id %>"class="btn btn-danger text-center col-xs-4 category-delete" onclick="deleteCategory(this)">Delete</button>
+                    </div>
+                    <% end %>
                 </div>
-                <% @items.each do |item| %>
+            </div>
+
+            <div class="col-md-9">
+                <div class="row">
+
+                <% if !@items.nil?
+                  pp @items
+                    @items.each do |item| %>
                     <div id="item<%= item.id %>" class="col-sm-4 col-lg-4 col-md-4">
                         <div class="thumbnail">
                             <%= image_tag(item.picture.url(:thumb))%>
@@ -36,19 +56,22 @@
                                 </h5>
                                 <p><%= item.description %></p>
                                 <div class="ratings">
-	                                <a id="<%= item.id %>" class="pull-right close delete">Delete</a>
+                                  <a id="<%= item.id %>" class="pull-right close delete">Delete</a>
                                     <a id="<%= item.id %>" class="pull-left close edit">Edit</a>
-	                            </div>
+                              </div>
                             </div>
                         </div>
                     </div>
-                <% end %>
-            </div>
-        </div>
-    </div>
+                <% end
+                  end %>
 
-    </div>
-    <div id="myModal" class="modal fade" role="dialog">
+                </div>
+
+            </div>
+
+        </div>
+
+    <div id="itemModal" class="modal fade" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -135,7 +158,7 @@
             </div>
             <div class="row">
               <div class="container modal-footer col-xs-12">
-                <button type="button" id="updateItemBtn" class="btn btn-default">Save</button>
+                <button type="button" id="createCategory" class="btn btn-default">Save</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               </div>
             </div>
@@ -143,6 +166,49 @@
         </div>
       </div>
     </div>
+    <div id="categoryModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Add Category</h4>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div id="formContainer" class="container col-xs-6">
+                <%= form_tag("/items/update", method: "post", multipart: true, action: :upload, id: "updateForm") do %>
+                  <div class="field">
+                    <%= label_tag :name %><br>
+                    <%= text_field_tag :newCategoryName %>
+                  </div>
+                  <div class="field">
+                    <%= label_tag :description %><br>
+                    <%= text_area_tag :newCategoryDescription %>
+                  </div>
+                <% end %>
+              </div>
+              <div id="alert container" class="col-xs-6">
+                <div id="successAlert" class="alert alert-success alert-dismissable fade">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                  <strong>Success!</strong> The category has been created
+                </div>
+                <div id="errorAlert" class="alert alert-danger alert-dismissable fade">
+                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                  <strong>Error!</strong> An error occured when creating the category
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="container modal-footer col-xs-12">
+                <button type="button" id="createCategory" onclick="createCategory()" class="btn btn-default">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
     <script>
     	$(".delete").click(function(e){
 		    $.ajax({
@@ -189,9 +255,32 @@
                 error: function(data) {
                     console.log("error retrieving item");
                 }
-            })
+            });
             $("#editModal").modal("show");
         });
+        function createCategory(event) {
+          console.log('test');
+          var data = {
+            name: $("#newCategoryName").val(),
+            description: $("#newCategoryDescription").val()
+          };
+          var url = "/categories"
+          $.ajax({
+            method: 'POST',
+            url: "/categories",
+            data: data,
+            success: function(response) {
+              console.log("success");
+            },
+            error: function(error) {
+              console.log(error);
+            }
+          });
+          $("#categoryModal").modal('hide');
+          $("#newCategoryName").val('');
+          $("#newCategoryDescription").val('');
+          window.location.reload();
+        }
 
         function setEditFields(data) {
           console.log(data);

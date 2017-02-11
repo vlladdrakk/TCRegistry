@@ -1,3 +1,35 @@
 // Place all the styles related to the manage controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#addItemButton {
+	display: block;
+	margin-top: 75px;
+}
+
+#categoryList {
+  .category-name {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+
+    cursor: pointer;
+  }
+
+  .category-delete {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    border: 1px solid transparent;
+
+    cursor: pointer;
+  }
+
+  .category-delete:hover {
+      color: #000;
+      background: none;
+      border: none;
+    }
+}
