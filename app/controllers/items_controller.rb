@@ -7,7 +7,7 @@ class ItemsController < ApplicationController
     description = params[:description]
     category = params[:category]
 
-    newItem = RegistryItem.new(
+    newItem = RegistryItem.create(
       name: item_name,
       needed: needed,
       pledged: 0,
@@ -15,7 +15,6 @@ class ItemsController < ApplicationController
       description: description,
       category_id: category
     )
-    newItem.save
 
     # redirect to management interface
     redirect_to action: "manage"
