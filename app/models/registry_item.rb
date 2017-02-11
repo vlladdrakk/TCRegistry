@@ -1,5 +1,5 @@
 class RegistryItem < ApplicationRecord
-	has_many :categories
+	belongs_to :category
 
 	has_attached_file :picture,
 	:styles => {
