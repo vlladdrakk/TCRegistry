@@ -22,17 +22,18 @@
     <div class="container">
         <div class="row">
           <div class="col-md-3">
-            <div class="row">
-              <a class="btn list-group-item text-center" data-toggle="modal" data-target="#itemModal">New Item</a>
-              <a class="btn list-group-item text-center" data-toggle="modal" data-target="#categoryModal">New Category</a>
+            <div class="lead">Actions</div>
+            <div id="actionList" class="list-group">
+              <% if !@categories.empty? %>
+              <button class="btn btn text-center action-btn col-xs-12" data-toggle="modal" data-target="#itemModal">New Item</button>
+              <%end%>
+              <button class="btn btn text-center action-btn col-xs-12" data-toggle="modal" data-target="#categoryModal">New Category</button>
             </div>
-            <p class="lead">Categories</p>
+            <div class="lead">Categories</div>
             <div id="categoryList" class="list-group">
               <% @categories.each do |category| %>
-                <div>
-                  <button id="<%= category.id %>" onclick="clickedCategory(this)" class="btn btn-primary1 text-center col-xs-8 category-name"><%= category.name %></button>
-                  <button id="delete-<%= category.id %>"class="btn btn-danger text-center col-xs-4 category-delete" onclick="deleteCategory(this)">Delete</button>
-                </div>
+                <button id="<%= category.id %>" onclick="clickedCategory(this)" class="btn text-center col-xs-8 category-name"><%= category.name %></button>
+                <button id="delete-<%= category.id %>" class="btn btn-danger text-center col-xs-4 category-delete" onclick="deleteCategory(this)">Delete</button>
               <% end %>
             </div>
           </div>
@@ -49,7 +50,7 @@
                                   <a href="#"><%= item.name %></a>
                                 </h4>
                                 <h5>
-                                  <span><%= @categories.find(item.category_id).name %></span>
+                                  <span><%= @categories.find(item.category_id).name unless item.category_id.nil? %></span>
                                 </h5>
                                 <p><%= item.description %></p>
                                 <div class="ratings">
@@ -94,7 +95,7 @@
                     <%= number_field_tag :needed, 0 %>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" id="submitItem" class="btn btn-default" data-dismiss="modal">Save</button>
+                    <button type="button" onclick="submitItem()" class="btn btn-default" data-dismiss="modal">Save</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                   </div>
                 <% end %>

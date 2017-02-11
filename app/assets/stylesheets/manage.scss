@@ -7,6 +7,17 @@
 	margin-top: 75px;
 }
 
+#actionList {
+  .action-btn {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+
+    cursor: pointer;
+  }
+}
+
 #categoryList {
   .category-name {
     border-bottom-right-radius: 0;
