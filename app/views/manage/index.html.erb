@@ -46,9 +46,9 @@
                         <div class="thumbnail">
                             <%= image_tag(item.picture.url(:thumb))%>
                             <div class="caption">
-                                <h4>
-                                  <a href="#"><%= item.name %></a>
-                                </h4>
+                                <h3>
+                                  <%= item.name %>
+                                </h3>
                                 <h5>
                                   <span><%= @categories.find(item.category_id).name unless item.category_id.nil? %></span>
                                 </h5>

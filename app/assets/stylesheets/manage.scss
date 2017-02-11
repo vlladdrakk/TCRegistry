@@ -18,6 +18,16 @@
   }
 }
 
+#itemControl {
+  .delete {
+    margin-right: 10px;
+  }
+
+  .edit {
+    margin-left: 10px;
+  }
+}
+
 #categoryList {
   .category-name {
     border-bottom-right-radius: 0;
