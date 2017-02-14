@@ -34,29 +34,29 @@
             </div>
 
             <div class="col-md-9">
-                <div class="row">
+              <div class="row">
 
-                <% @items.each do |item| %>
-	                    <div class="col-sm-4 col-lg-4 col-md-4">
-	                        <div class="thumbnail">
-	                            <%= image_tag(item.picture)%>
-	                            <div class="caption">
-	                                <h4 class="pull-right">Quantity: <%= item.needed - item.pledged %></h4>
-	                                <h4><a href="#"><%= item.name %></a>
-	                                </h4>
-	                                <p><%= item.description %></p>
-	                            </div>
-
-	                        </div>
-	                    </div>
-	            	<% end %>
-
-                </div>
-
+                <% @items.each do |item|
+                  if item.needed != 0 %>
+                    <div id="item-<%= item.id %>" class="col-sm-4 col-lg-4 col-md-4">
+                      <div class="thumbnail">
+                        <%= image_tag(item.picture)%>
+                        <div class="caption">
+                          <h4 class="pull-right">Needed: <span id="needed-<%= item.id %>"><%= item.needed - item.pledged %></span></h4>
+                          <h4><a href="#"><%= item.name %></a>
+                          </h4>
+                          <p><%= item.description %></p>
+                          <div id="itemControl" class="row text-center">
+                            <span id="<%= item.id %>" onclick="claimItem(this)" class="close claim">I&apos;ll get this!</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+	            	  <% end
+                end %>
+              </div>
             </div>
-
         </div>
-
     </div>
     <!-- /.container -->
 

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   post 'items' => 'items#create'
   put 'items' => 'items#update'
   get 'items' => 'items#get'
+  post 'items/claim' => 'items#claim'
 
   get 'welcome/:selection' => 'welcome#index'
 

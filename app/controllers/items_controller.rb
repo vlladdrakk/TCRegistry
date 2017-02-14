@@ -1,6 +1,8 @@
 require 'open-uri'
 
 class ItemsController < ApplicationController
+  skip_before_action :verify_authenticity_token
+
   def create
     image = nil
     # get the item information from the parameters
@@ -69,6 +71,15 @@ class ItemsController < ApplicationController
     rescue
       render json: {result: false}
     end
+  end
+
+  def claim
+    id = params[:id]
+    item = RegistryItem.find(id)
+    current_needed = item.needed
+    updated_needed = current_needed - 1
+    item.update(needed: updated_needed)
+    render json: {"needed": item.needed}
   end
 
   private
