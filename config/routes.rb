@@ -5,14 +5,13 @@ Rails.application.routes.draw do
   put 'items' => 'items#update'
   get 'items' => 'items#get'
   post 'items/claim' => 'items#claim'
+  delete 'items' => 'manage#delete'
 
   get 'welcome/:selection' => 'welcome#index'
 
   root 'welcome#index'
 
   get 'manage' => 'manage#index'
-
-  get 'delete' => 'items#delete'
 
   post 'categories' => 'categories#create'
   delete 'categories' => 'categories#destroy'

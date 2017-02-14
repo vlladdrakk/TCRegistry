@@ -20,7 +20,8 @@ function deleteCategory(entity) {
 
 function deleteItem(element){
   $.ajax({
-    url: "/delete;",
+    url: "/item;",
+    method: "DELETE",
     data: {"id": element.id},
     success: function(result){
       $("#item" + element.id).addClass("hidden");
