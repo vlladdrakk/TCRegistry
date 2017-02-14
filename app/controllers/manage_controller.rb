@@ -1,4 +1,6 @@
 class ManageController < ApplicationController
+  before_action :authenticate_admin!
+
   def index
   	selection = params[:selection]
   	if selection.nil?
