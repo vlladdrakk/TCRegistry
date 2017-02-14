@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   get 'manage/index'
 
   post 'items' => 'items#create'
-  post 'items/update' => 'items#update'
+  put 'items' => 'items#update'
   get 'items' => 'items#get'
 
   get 'welcome/:selection' => 'welcome#index'

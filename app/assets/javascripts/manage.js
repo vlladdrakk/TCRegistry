@@ -41,7 +41,8 @@ function submitItem() {
 
 function updateItem() {
   var res = $("#updateForm").ajaxSubmit({
-    url: "/items/update",
+    url: "/items",
+    method: "PUT",
     dataType: "json",
     success: function(data, textStatus, jqXHR)
     {
