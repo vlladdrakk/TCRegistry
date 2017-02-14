@@ -86,9 +86,20 @@
                     <%= label_tag :category %><br>
                     <%= select_tag "category", options_from_collection_for_select(@categories, "id", "name") %>
                   </div>
-                  <div class="field">
-                    <%= label_tag :image %><br>
-                    <%= file_field_tag :image %>
+                  <div id="imageUploadContainer" class="container">
+                    <div class="row">
+                      <div class="field pull-left">
+                        <%= label_tag :image_url %><br>
+                        <%= text_field_tag "image_url" %>
+                      </div>
+                      <span>
+                        <strong>or</strong>
+                      </span>
+                      <div class="field pull-right">
+                        <%= label_tag :image_file %><br>
+                        <%= file_field_tag :image %>
+                      </div>
+                    </div>
                   </div>
                   <div class="field">
                     <%= label_tag :needed %>

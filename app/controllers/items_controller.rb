@@ -1,11 +1,25 @@
+require 'open-uri'
+
 class ItemsController < ApplicationController
   def create
+    image = nil
     # get the item information from the parameters
     item_name = params[:name]
     needed = params[:needed]
-    image = params[:image]
+    image_file = params[:image]
+    image_url = params[:image_url]
     description = params[:description]
     category = params[:category]
+
+    puts "image: #{image}"
+    puts "image_url: #{image_url}"
+
+    if image_url.nil?
+      image = image_file
+    else
+      image = get_url_image(image_url)
+    end
+
 
     newItem = RegistryItem.create(
       name: item_name,
@@ -55,5 +69,11 @@ class ItemsController < ApplicationController
     rescue
       render json: {result: false}
     end
+  end
+
+  private
+
+  def get_url_image image_url
+    return open(image_url)
   end
 end
