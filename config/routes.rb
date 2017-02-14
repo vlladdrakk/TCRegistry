@@ -1,15 +1,16 @@
 Rails.application.routes.draw do
+  devise_for :admins
   get 'manage/index'
 
-  post 'items' => 'items#create'
-  put 'items' => 'items#update'
-  get 'items' => 'items#get'
-  post 'items/claim' => 'items#claim'
+  post 'items' => 'manage#create'
+  put 'items' => 'manage#update'
+  get 'items' => 'manage#get'
+  post 'items/claim' => 'manage#claim'
   delete 'items' => 'manage#delete'
 
   get 'welcome/:selection' => 'welcome#index'
 
-  root 'welcome#index'
+  root 'items#index'
 
   get 'manage' => 'manage#index'
 
