@@ -6,7 +6,9 @@ class ItemsController < ApplicationController
   def index
     selectedCategory = params[:selection]
     @categories = Category.all
-    if selectedCategory.nil?
+    if Category.first.nil?
+      @items = nil
+    elsif selectedCategory.nil?
       @items = RegistryItem.where(category_id: Category.first.id)
     else
       selected_id = Category.find(selectedCategory).id
