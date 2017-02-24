@@ -24,10 +24,35 @@ class ItemsController < ApplicationController
 
   def claim
     id = params[:id]
-    item = RegistryItem.find(id)
-    current_needed = item.needed
-    updated_needed = current_needed - 1
-    item.update(needed: updated_needed)
-    render json: {"needed": item.needed}
+    access_code = params[:code]
+
+    invalid_code = AccessCode.where(
+      active: true,
+      code: access_code
+    ).empty?
+
+    if invalid_code
+      render json: {
+        result: "Invalid Code",
+        code: "500"
+      } and return
+    end
+
+    begin
+      item = RegistryItem.find(id)
+      current_needed = item.needed
+      updated_needed = current_needed - 1
+      item.update(needed: updated_needed)
+      render json: {
+        needed: item.needed,
+        code: "200",
+        result: "success"
+      }
+    rescue
+      render json: {
+        code: "500",
+        result: "Error finding item"
+      }
+    end
   end
 end
