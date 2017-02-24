@@ -31,10 +31,13 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/">TCRegistry</a>
+        <a class="navbar-brand" href="/registry">Registry</a>
       </div>
       <div>
         <ul class="nav navbar-nav">
+          <li>
+            <a href="/">Home</a>
+          </li>
           <li>
             <% if admin_signed_in? %>
               <a href="/manage">Item Management</a>
@@ -44,7 +47,7 @@
       </div>
       <div class="nav navbar-nav navbar-right">
         <% if admin_signed_in? %>
-        <%= link_to('Logout', destroy_admin_session_path, :method => :delete, class: "btn btn-default navbar-btn")  %>>
+        <%= link_to('Logout', destroy_admin_session_path, :method => :delete, class: "btn btn-default navbar-btn")  %>
         <%end %>
       </div>
 
