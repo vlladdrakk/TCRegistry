@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   post 'items' => 'manage#create'
   put 'items' => 'manage#update'
   get 'items' => 'manage#get'
-  post 'items/claim' => 'manage#claim'
+  post 'items/claim' => 'items#claim'
   delete 'items' => 'manage#delete'
 
   get 'welcome/:selection' => 'welcome#index'
