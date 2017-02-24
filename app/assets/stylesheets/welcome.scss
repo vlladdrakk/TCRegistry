@@ -1,3 +1,20 @@
 // Place all the styles related to the Welcome controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#itemControl {
+  .claim {
+    margin-right: 10px;
+  }
+}
+
+#categoryList {
+  .category-name {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+
+    cursor: pointer;
+  }
+}

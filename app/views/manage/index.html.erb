@@ -7,97 +7,219 @@
 	<!-- Bootstrap Core CSS -->
     <%= stylesheet_link_tag "bootstrap.min.css" %> 
 
-    <!-- Custom CSS -->
-    <%= stylesheet_link_tag "shop-homepage.css" %> 
       <!-- jQuery -->
     <%= javascript_include_tag "jquery.js" %>
     <%= javascript_include_tag "bootstrap.min.js" %>
-    
+    <%= javascript_include_tag "jquery.form.js" %>
+    <%= javascript_include_tag "welcome.js" %>
+    <%= javascript_include_tag "manage.js" %>
 </head>
 <body>
-	<!-- Navigation -->
-    
 
-	<div class="container">
+
+
+  <!-- Page Content -->
+    <div class="container">
         <div class="row">
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="btn-lg btn btn-primary" data-toggle="modal" data-target="#myModal">Add</div>
-                </div>
-                <% @items.each do |item| %>
-                    <div id="item<%= item.id %>" class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <%= image_tag(item.picture.url(:thumb))%>
-                            <div class="caption">
-                                <h4><a href="#"><%= item.name %></a>
-                                </h4>
-                                <p><%= item.description %></p>
-                                <div class="ratings">
-	                                <a id="<%= item.id %>" class="pull-right close">Delete</a>
-	                            </div>
-                            </div>
-                        </div>
-                    </div>
-                <% end %>
+          <div class="col-md-3">
+            <div>
+              <div class="text-center lead col-xs-12">Actions</div>
             </div>
-        </div>
-    </div>
-
-    </div>
-    <div id="myModal" class="modal fade" role="dialog">
-      <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Modal Header</h4>
+            <div class="row">
+              <div id="actionList" class="list-group">
+                <% if !@categories.empty? %>
+                <button class="btn btn text-center action-btn col-xs-12" data-toggle="modal" data-target="#itemModal">New Item</button>
+                <%end%>
+                <button class="btn btn text-center action-btn col-xs-12" data-toggle="modal" data-target="#categoryModal">New Category</button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="text-center lead col-xs-12">Categories</div>
+            </div>
+            <div class="row">
+              <div id="categoryList" class="list-group">
+                <% @categories.each do |category| %>
+                  <button id="<%= category.id %>" onclick="clickedCategory(this)" class="btn text-center col-xs-8 category-name"><%= category.name %></button>
+                  <button id="delete-<%= category.id %>" class="btn btn-danger text-center col-xs-4 category-delete" onclick="deleteCategory(this)">Delete</button>
+                <% end %>
+              </div>
+            </div>
           </div>
-          <div class="modal-body">
-            <%= form_tag("/items", method: "post", multipart: true, action: :upload, id: "itemForm") do %>
-              <div class="field">
-                <%= label_tag :name %><br>
-                <%= text_field_tag :name %>
-              </div>
-              <div class="field">
-                <%= label_tag :description %><br>
-                <%= text_area_tag :description %>
-              </div>
-              <div class="field">
-                <%= label_tag :image %><br>
-                <%= file_field_tag :image %>
-              </div>
-              <div class="field">
-                <%= label_tag :needed %>
-                <%= number_field_tag :needed %>
-              <div class="modal-footer">
-                <button type="button" id="submitItem" class="btn btn-default" data-dismiss="modal">Save</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-            <% end %>
+          <div class="col-md-9">
+            <div class="row">
+              <% if !@items.nil?
+                pp @items
+                  @items.each do |item| %>
+                  <div id="item<%= item.id %>" class="col-sm-4 col-lg-4 col-md-4">
+                      <div class="thumbnail">
+                          <%= image_tag(item.picture.url(:thumb))%>
+                          <div class="caption">
+                            <h3>
+                              <%= item.name %>
+                            </h3>
+                            <h5>
+                              <span><%= @categories.find(item.category_id).name unless item.category_id.nil? %></span>
+                            </h5>
+                            <p><%= item.description %></p>
+                            <div id="itemControl" class="row">
+                              <a id="<%= item.id %>" onclick="deleteItem(this)" class="pull-right close delete">Delete</a>
+                              <a id="<%= item.id %>" onclick="editItem(this)" class="pull-left close edit">Edit</a>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+              <% end
+                end %>
+            </div>
           </div>
-          
         </div>
-
+        <div id="itemModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add New Item</h4>
+              </div>
+              <div class="modal-body">
+                <%= form_tag("/items", method: "post", multipart: true, action: :upload, id: "itemForm") do %>
+                  <div class="field">
+                    <%= label_tag :name %><br>
+                    <%= text_field_tag :name %>
+                  </div>
+                  <div class="field">
+                    <%= label_tag :description %><br>
+                    <%= text_area_tag :description %>
+                  </div>
+                  <div class='field'>
+                    <%= label_tag :category %><br>
+                    <%= select_tag "category", options_from_collection_for_select(@categories, "id", "name") %>
+                  </div>
+                  <div id="imageUploadContainer" class="container">
+                    <div class="row">
+                      <div class="field pull-left">
+                        <%= label_tag :image_url %><br>
+                        <%= text_field_tag "image_url" %>
+                      </div>
+                      <span>
+                        <strong>or</strong>
+                      </span>
+                      <div class="field pull-right">
+                        <%= label_tag :image_file %><br>
+                        <%= file_field_tag :image %>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <%= label_tag :needed %>
+                    <%= number_field_tag :needed, 0 %>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" onclick="submitItem()" class="btn btn-default" data-dismiss="modal">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="editModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit Item</h4>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  <div id="formContainer" class="container col-xs-6">
+                    <%= form_tag("/items/update", method: "post", multipart: true, action: :upload, id: "updateForm") do %>
+                      <div class="field">
+                        <%= label_tag :edit_name %><br>
+                        <%= text_field_tag :edit_name %>
+                      </div>
+                      <div class="field">
+                        <%= label_tag :edit_description %><br>
+                        <%= text_area_tag :edit_description %>
+                      </div>
+                       <div class='field'>
+                        <%= label_tag :edit_category %><br>
+                        <%= select_tag "edit_category", options_from_collection_for_select(@categories, "id", "name") %>
+                      </div>
+                      <div class="field">
+                        <%= label_tag :edit_image %>
+                        <span> (leave blank to remain unchanged)</span>
+                        <br>
+                        <%= file_field_tag :edit_image %>
+                      </div>
+                      <div class="field">
+                        <%= label_tag :edit_needed %><br>
+                        <%= number_field_tag :edit_needed, 0 %>
+                      </div>
+                      <input id="edit_item_id" name="item_id" class="hidden"/>
+                    <% end %>
+                  </div>
+                  <div id="alert container" class="col-xs-6">
+                    <div id="successAlert" class="alert alert-success alert-dismissable fade">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                      <strong>Success!</strong> The item has been updated
+                    </div>
+                    <div id="errorAlert" class="alert alert-danger alert-dismissable fade">
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                      <strong>Error!</strong> An error occured when updating the item
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="container modal-footer col-xs-12">
+                    <button type="button" id="updateItem" onclick="updateItem()" class="btn btn-default">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="categoryModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Category</h4>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  <div id="formContainer" class="container col-xs-6">
+                    <%= form_tag("/items/update", method: "post", multipart: true, action: :upload, id: "updateForm") do %>
+                      <div class="field">
+                        <%= label_tag :name %><br>
+                        <%= text_field_tag :newCategoryName %>
+                      </div>
+                      <div class="field">
+                        <%= label_tag :description %><br>
+                        <%= text_area_tag :newCategoryDescription %>
+                      </div>
+                    <% end %>
+                  </div>
+                  <div id="alert container" class="col-xs-6">
+                    <div id="successAlert" class="alert alert-success alert-dismissable fade">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                      <strong>Success!</strong> The category has been created
+                    </div>
+                    <div id="errorAlert" class="alert alert-danger alert-dismissable fade">
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                      <strong>Error!</strong> An error occured when creating the category
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="container modal-footer col-xs-12">
+                    <button type="button" id="createCategory" onclick="createCategory()" class="btn btn-default">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <script>
-    	$(".close").click(function(e){
-		    $.ajax({
-		    	url: "/delete;", 
-		    	data: {"id": e.target.id},
-		    	success: function(result){
-		    		console.log('Success');
-                    $("#item" + e.target.id).addClass("hidden");
-		    	},
-		    	error: function(result) {
-		    		console.log('Failure');
-		    	}
-			});
-		});
-        $("#submitItem").click(function(e) {
-            $("#itemForm").submit();
-            window.location.reload();
-        });
-    </script>
 </body>
