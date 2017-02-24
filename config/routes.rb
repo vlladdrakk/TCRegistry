@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   get 'welcome/:selection' => 'welcome#index'
 
-  root 'items#index'
+  root 'welcome#index'
   root to: 'manage#index'
 
   get 'manage' => 'manage#index'
