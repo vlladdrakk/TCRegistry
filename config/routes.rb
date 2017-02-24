@@ -17,5 +17,9 @@ Rails.application.routes.draw do
 
   post 'categories' => 'categories#create'
   delete 'categories' => 'categories#destroy'
+
+  post 'rsvp' => 'rsvp#create'
+
+  get 'registry' => 'items#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
