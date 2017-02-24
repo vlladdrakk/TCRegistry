@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170214021616) do
+ActiveRecord::Schema.define(version: 20170224000705) do
+
+  create_table "access_codes", force: :cascade do |t|
+    t.integer  "code"
+    t.boolean  "active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -57,6 +64,13 @@ ActiveRecord::Schema.define(version: 20170214021616) do
     t.datetime "picture_updated_at"
     t.integer  "category_id"
     t.index ["category_id"], name: "index_registry_items_on_category_id"
+  end
+
+  create_table "rsvps", force: :cascade do |t|
+    t.string   "attending"
+    t.text     "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
