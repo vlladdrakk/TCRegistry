@@ -6,7 +6,7 @@
 
 	<!-- Bootstrap Core CSS -->
     <%= stylesheet_link_tag "bootstrap.min.css" %>
-
+    <%= stylesheet_link_tag "manage" %>
       <!-- jQuery -->
     <%= javascript_include_tag "jquery.js" %>
     <%= javascript_include_tag "bootstrap.min.js" %>
@@ -96,14 +96,14 @@
                   </div>
                   <div id="imageUploadContainer" class="container">
                     <div class="row">
-                      <div class="field pull-left">
+                      <div class="field col-xs-4">
                         <%= label_tag :image_url %><br>
                         <%= text_field_tag "image_url" %>
                       </div>
-                      <span>
+                      <div class="col-xs-2 text-center">
                         <strong>or</strong>
-                      </span>
-                      <div class="field pull-right">
+                      </div>
+                      <div class="field col-xs-6">
                         <%= label_tag :image_file %><br>
                         <%= file_field_tag :image %>
                       </div>
