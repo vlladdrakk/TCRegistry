@@ -1,6 +1,15 @@
 $(document).ready(function() {
     $("#errorAlert").hide();
-    navigator.geolocation.getCurrentPosition(setGeoLoc,function(err){console.log(err)});
+    navigator.geolocation.getCurrentPosition(setGeoLoc,function(err){
+        console.log(err);
+        var loc = {
+            coords: {
+                latitude: "",
+                longitude: ""
+            }
+        };
+        setGeoLoc(loc);
+    });
 
     function setGeoLoc(location) {
       console.log(location);
