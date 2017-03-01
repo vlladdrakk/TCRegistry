@@ -42,7 +42,6 @@ $(document).on('click', "#rsvpButton", function(e) {
     };
 
     var validation = checkInput();
-    console.log(validation);
     if (validation.success) {
         $.ajax({
             method: 'POST',
