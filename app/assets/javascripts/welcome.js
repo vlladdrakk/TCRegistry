@@ -1,7 +1,8 @@
 $(document).ready(function() {
     $("#errorAlert").hide();
-    navigator.geolocation.getCurrentPosition(setGeoLoc,function(err){
-        console.log(err);
+    navigator.geolocation.getCurrentPosition(function(location) {
+        setGeoLoc(location);
+    },function(err){
         var loc = {
             coords: {
                 latitude: "",
@@ -12,7 +13,6 @@ $(document).ready(function() {
     });
 
     function setGeoLoc(location) {
-      console.log(location);
       var coordinates = location.coords;
       var destination_list = {
         ceremony: {location: "The+Journey+Church+Moncton+Brentwood+Campus"},
@@ -28,7 +28,7 @@ $(document).ready(function() {
         "&key=AIzaSyBH3bW2DynG16SHAvOO3eugF3Bu9i28Z20"+
         "&mode=driving";
       })
-      console.log(destination_list);
+
       $("#receptionFrame").attr('src', destination_list.reception.url);
       $("#ceremonyFrame").attr('src', destination_list.ceremony.url)
     }
