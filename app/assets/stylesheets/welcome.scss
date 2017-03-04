@@ -9,22 +9,22 @@ body {
   font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif;
 }
 hr {
-  border-color: $primary-colour;
+  border-color: $secondary-colour;
   border-width: 3px;
   max-width: 50px;
 }
 hr.light {
-  border-color: $secondary-colour;
+  border-color: white;
 }
 a {
   -webkit-transition: all 0.35s;
   -moz-transition: all 0.35s;
   transition: all 0.35s;
-  color: $primary-colour;
+  color: $secondary-colour;
 }
 a:hover,
 a:focus {
-  color: #eb3812;
+  color: $secondary-colour;
   cursor: pointer;
 }
 h1,
@@ -132,8 +132,10 @@ header .header-content .header-content-inner p {
   max-width: 400px;
   margin: 50px auto 0;
   font-size: 24px;
+  color: grey;
 
   h3 {
+    color: black;
     font-weight: 700;
     font-size: 32px;
   }
@@ -155,8 +157,8 @@ header .header-content .header-content-inner p {
 }
 .btn-default {
   color: #222222;
-  background-color: $secondary-colour;
-  border-color: $secondary-colour;
+  background-color: white;
+  border-color: white;
   -webkit-transition: all 0.35s;
   -moz-transition: all 0.35s;
   transition: all 0.35s;
@@ -323,7 +325,7 @@ body {
 }
 
 #comingSoonButton {
-  background: $primary-colour;
+  background: $secondary-colour;
   cursor: unset;
 }
 
@@ -346,4 +348,8 @@ body {
 .div-center {
   float: none;
   margin: 0 auto;
+}
+
+#registryDescription {
+  color: grey;
 }
