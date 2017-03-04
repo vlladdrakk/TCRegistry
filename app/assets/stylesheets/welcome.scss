@@ -25,6 +25,7 @@ a {
 a:hover,
 a:focus {
   color: #eb3812;
+  cursor: pointer;
 }
 h1,
 h2,
@@ -289,6 +290,10 @@ body {
   margin-top: 5px;
 }
 
+#rsvpEmail {
+  color: inherit;
+}
+
 #rsvpForm {
   display: table;
   margin: 0 auto;
@@ -299,11 +304,16 @@ body {
 
     input {
       display: table-cell;
+      margin-bottom: 5px;
+      border: 1px;
+      border-radius: 5px;
+      line-height: 1.6;
     }
 
     label {
       text-align: right;
       display: table-cell;
+      padding-right: 5px;
     }
   }
 }
