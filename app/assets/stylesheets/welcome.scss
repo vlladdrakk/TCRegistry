@@ -76,9 +76,13 @@ header .header-content {
   text-align: center;
   padding: 100px 15px 100px;
   width: 100%;
+  h1, h2 {
+    font-family: 'Patrick Hand SC', cursive;
+    font-weight: 500;
+  }
 }
 header .header-content .header-content-inner h1 {
-  font-weight: 700;
+  font-weight: 500;
   text-transform: uppercase;
   margin-top: 0;
   margin-bottom: 0;
