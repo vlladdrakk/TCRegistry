@@ -2,6 +2,7 @@ require 'open-uri'
 
 class ItemsController < ApplicationController
   skip_before_action :verify_authenticity_token
+  before_action :authenticate_admin!
 
   def index
     selectedCategory = params[:selection]
