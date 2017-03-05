@@ -33,7 +33,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Cormorant Garamond', serif;;
 }
 p {
   font-size: 16px;
@@ -104,7 +104,7 @@ header .header-content .header-content-inner p {
   color: rgba(255, 255, 255, 0.7);
   font-size: 16px;
   margin-bottom: 50px;
-  font-family: "Patrick Hand SC";
+  font-family: 'Cormorant Garamond', serif;
 }
 @media (min-width: 768px) {
   header {
@@ -355,6 +355,11 @@ body {
 
 #registryDescription {
   color: grey;
+
+  .p-heading {
+    font-size: 20px;
+    line-height: 1.8;
+  }
 }
 
 #invitationClose {
