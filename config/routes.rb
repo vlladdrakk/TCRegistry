@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   post 'items' => 'manage#create'
   put 'items' => 'manage#update'
-  get 'items' => 'manage#get'
+  get 'items' => 'items#get'
   post 'items/claim' => 'items#claim'
   delete 'items' => 'manage#delete'
 
