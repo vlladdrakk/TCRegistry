@@ -42,9 +42,6 @@ class ManageController < ApplicationController
       description: description,
       category_id: category
     )
-
-    # redirect to management interface
-    redirect_to action: "manage"
   end
 
   def delete
