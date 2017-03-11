@@ -27,7 +27,7 @@ class ManageController < ApplicationController
 
     if image_url.nil? && image_file.nil? == false
       image = image_file
-    elsif image_file.nil?
+    elsif image_file.nil? && image_url.nil?
       image = open("#{Rails.root}/public/images/placeholder.jpg")
     else
       image = get_url_image(image_url)
