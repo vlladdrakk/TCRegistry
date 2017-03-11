@@ -69,7 +69,7 @@ function updateItem() {
 function editItem(element) {
   console.log("sending get request");
   $.ajax({
-    url: "/items;",
+    url: "/items",
     data: {"id": element.id},
     success: function(data) {
       setEditFields(data);
