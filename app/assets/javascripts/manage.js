@@ -39,9 +39,11 @@ function clickedCategory(e) {
 function submitItem() {
   var category_id = $("#category").val();
   var base_url = window.location.toString().split('?')[0];
+  console.log("base_url" + base_url);
   $("#itemForm").submit();
-
-  window.location = base_url + "?selection=" + category_id;
+  setTimeout(function(){
+    window.location = base_url + "?selection=" + category_id;
+  }, 700);
 };
 
 function updateItem() {
