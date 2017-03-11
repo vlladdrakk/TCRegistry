@@ -32,6 +32,10 @@ function deleteItem(element){
   });
 };
 
+function clickedCategory(e) {
+  window.location = "?selection=" + e.id;
+}
+
 function submitItem() {
   var category_id = $("#category").val();
   var base_url = window.location.toString().split('?')[0];
