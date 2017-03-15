@@ -23,12 +23,12 @@ class ManageController < ApplicationController
     category = params[:category]
 
 
-    if image_url.nil? && image_file.nil? == false
+    if image_url.empty? && !image_file.nil?
       image = image_file
-    elsif image_file.nil? && image_url.nil?
-      image = open("#{Rails.root}/public/images/placeholder.jpg")
-    else
+    elsif image_file.nil? && !image_url.empty?
       image = get_url_image(image_url)
+    else
+      image = open("#{Rails.root}/public/images/placeholder.jpg")
     end
 
 
@@ -53,21 +53,20 @@ class ManageController < ApplicationController
     item_name = params[:edit_name]
     item_description = params[:edit_description]
     item_category = params[:edit_category]
-    image_file = params[:image]
-    image_url = params[:image_url] == "" ? nil : params[:image_url]
+    image_file = params[:edit_image]
+    image_url = params[:edit_image_url]
     item_needed = params[:edit_needed]
     item_id = params[:item_id]
     image = nil
 
-    Rails.logger.debug(image_file)
-    Rails.logger.debug(image_url)
+    puts "image url"
+    pp image_url
 
-    if image_url.nil? && !image_file.nil?
+    if image_url.empty? && !image_file.nil?
       image = image_file
-    elsif image_file.nil? && !image_url.nil?
+    elsif image_file.nil? && !image_url.empty?
       image = get_url_image(image_url)
     else
-      puts image_file
       image = open("#{Rails.root}/public/images/placeholder.jpg")
     end
 
@@ -89,6 +88,7 @@ class ManageController < ApplicationController
   private
 
   def get_url_image image_url
-    return open(image_url)
+    return open(image_url) unless image_url.empty?
+    return nil
   end
 end
