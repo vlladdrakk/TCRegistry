@@ -131,7 +131,7 @@
               </div>
               <div class="modal-body">
                 <div class="row">
-                  <div id="formContainer" class="container col-xs-6">
+                  <div id="formContainer" class="container col-xs-12">
                     <%= form_tag("/items/update", method: "post", multipart: true, action: :upload, id: "updateForm") do %>
                       <div class="field">
                         <%= label_tag :edit_name %><br>
@@ -145,11 +145,20 @@
                         <%= label_tag :edit_category %><br>
                         <%= select_tag "edit_category", options_from_collection_for_select(@categories, "id", "name") %>
                       </div>
-                      <div class="field">
-                        <%= label_tag :edit_image %>
-                        <span> (leave blank to remain unchanged)</span>
-                        <br>
-                        <%= file_field_tag :edit_image %>
+                      <div id="imageUploadContainer" class="fluid-container">
+                        <div class="row">
+                          <div class="field col-xs-5">
+                            <%= label_tag :edit_image_url %><br>
+                            <%= text_field_tag :edit_image_url %>
+                          </div>
+                          <div class="col-xs-2 text-center">
+                            <strong>or</strong>
+                          </div>
+                          <div class="field col-xs-5">
+                            <%= label_tag :edit_image_file %><br>
+                            <%= file_field_tag :edit_image %>
+                          </div>
+                        </div>
                       </div>
                       <div class="field">
                         <%= label_tag :edit_needed %><br>
