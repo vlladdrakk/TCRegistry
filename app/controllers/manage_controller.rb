@@ -22,8 +22,6 @@ class ManageController < ApplicationController
     description = params[:description]
     category = params[:category]
 
-    puts "image: #{image}"
-    puts "image_url: #{image_url}"
 
     if image_url.nil? && image_file.nil? == false
       image = image_file
@@ -55,16 +53,31 @@ class ManageController < ApplicationController
     item_name = params[:edit_name]
     item_description = params[:edit_description]
     item_category = params[:edit_category]
-    item_image = params[:edit_image]
+    image_file = params[:image]
+    image_url = params[:image_url] == "" ? nil : params[:image_url]
     item_needed = params[:edit_needed]
     item_id = params[:item_id]
+    image = nil
+
+    Rails.logger.debug(image_file)
+    Rails.logger.debug(image_url)
+
+    if image_url.nil? && !image_file.nil?
+      image = image_file
+    elsif image_file.nil? && !image_url.nil?
+      image = get_url_image(image_url)
+    else
+      puts image_file
+      image = open("#{Rails.root}/public/images/placeholder.jpg")
+    end
+
     item = RegistryItem.find(item_id)
     begin
       item.update(
         name: item_name,
         needed: item_needed,
         category_id: item_category,
-        picture: item_image,
+        picture: image,
         description: item_description
       )
       render json: {result: true}
