@@ -1,3 +1,47 @@
 // Place all the styles related to the items controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import 'variables';
+
+#itemList {
+  overflow: hidden;
+  float: left;
+
+  .item {
+    display: inline-block;
+    float: left;
+    height: 450px;
+    padding-bottom: 15px;
+
+    .thumbnail {
+      height: 100%;
+      background: #F2F1F0;
+
+      img {
+        height: 250px;
+        object-fit: cover;
+      }
+
+      .item-name {
+        font-weight: 700;
+      }
+
+      #itemControl {
+        span {
+          margin-right: 5px;
+          position: absolute;
+          bottom: 25px;
+        }
+
+        .claim {
+          color: $primary-colour;
+          opacity: 0.7;
+        }
+
+        .claim:hover {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

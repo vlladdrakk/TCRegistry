@@ -6,7 +6,7 @@ function claimItem(element) {
   var item_id = element.id;
 
   // prompt user for the access code
-  var access_code = prompt("Please enter the access code that is in the bottom left corner of your invitation");
+  var access_code = prompt("Please enter the access code that is in the bottom left corner of your invitation\n(This action cannot be undone)");
   $.ajax({
     url: "/items/claim",
     method: "POST",
