@@ -123,3 +123,7 @@ $(document).on('click', ".map-container", function(e) {
 }).mouseleave(function(){
     $(".map-frame").removeClass('clicked');
 });
+
+$(document).on('click', "#comingSoonButton", function(e) {
+    window.location = "/registry";
+})
