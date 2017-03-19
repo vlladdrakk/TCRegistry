@@ -37,3 +37,11 @@ function claimItem(element) {
     })
   }
 }
+
+window.onload = function() {
+  first_look = localStorage.getItem("firstLook");
+  if (first_look == null) {
+    $("#registryModal").modal("show");
+    localStorage.setItem("firstLook", "false");
+  }
+}
