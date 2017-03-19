@@ -79,6 +79,8 @@ function editItem(element) {
     }
   });
   $("#editModal").modal("show");
+  $("#edit_image").val("");
+  $("#edit_image_url").val("");
 };
 
 function createCategory(event) {
