@@ -59,26 +59,24 @@ class ManageController < ApplicationController
     item_id = params[:item_id]
     image = nil
 
-    puts "image url"
-    pp image_url
-
-    if image_url.empty? && !image_file.nil?
+    if image_url.empty? && image_file.size != 0
       image = image_file
-    elsif image_file.nil? && !image_url.empty?
+    elsif image_file.size == 0 && !image_url.empty?
       image = get_url_image(image_url)
     else
-      image = open("#{Rails.root}/public/images/placeholder.jpg")
+      image = nil
     end
 
     item = RegistryItem.find(item_id)
+    update_data = Hash.new
+    update_data[:name] = item_name if !item_name.empty?
+    update_data[:needed] = item_needed if !item_needed.empty?
+    update_data[:description] = item_description if !item_description.empty?
+    update_data[:category_id] = item_category if !item_category.empty?
+    update_data[:picture] = image if !image.nil?
+
     begin
-      item.update(
-        name: item_name,
-        needed: item_needed,
-        category_id: item_category,
-        picture: image,
-        description: item_description
-      )
+      item.update(update_data)
       render json: {result: true}
     rescue
       render json: {result: false}
