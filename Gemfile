@@ -51,3 +51,4 @@ gem 'paperclip'
 gem 'aws-sdk'
 gem 'devise'
 gem 'carrierwave'
+gem "sentry-raven"
