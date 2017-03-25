@@ -1,37 +1,16 @@
 $(document).ready(function() {
-    $("#errorAlert").hide();
-    navigator.geolocation.getCurrentPosition(function(location) {
-        setGeoLoc(location);
-    },function(err){
-        var loc = {
-            coords: {
-                latitude: "",
-                longitude: ""
-            }
-        };
-        setGeoLoc(loc);
-    });
+  var destination_list = {
+    ceremony: {location: "The+Journey+Church+Moncton+Brentwood+Campus"},
+    reception: {location: "The+Journey+Church+Moncton+Alison"}
+  }
 
-    function setGeoLoc(location) {
-      var coordinates = location.coords;
-      var destination_list = {
-        ceremony: {location: "The+Journey+Church+Moncton+Brentwood+Campus"},
-        reception: {location: "The+Journey+Church+Moncton+Alison"}
-      }
-      //set map url
-      var geo_loc = coordinates.latitude + "," + coordinates.longitude;
+  $.each(destination_list, function(index,destination) {
+    destination.url = "https://www.google.com/maps/embed/v1/place?q="+
+    destination.location+"&key=AIzaSyBH3bW2DynG16SHAvOO3eugF3Bu9i28Z20";
+  })
 
-      $.each(destination_list, function(index,destination) {
-        destination.url = "https://www.google.com/maps/embed/v1/directions?"+
-        "&destination="+destination.location+
-        "&origin="+ geo_loc +
-        "&key=AIzaSyBH3bW2DynG16SHAvOO3eugF3Bu9i28Z20"+
-        "&mode=driving";
-      })
-
-      $("#receptionFrame").attr('src', destination_list.reception.url);
-      $("#ceremonyFrame").attr('src', destination_list.ceremony.url)
-    }
+  $("#receptionFrame").attr('src', destination_list.reception.url);
+  $("#ceremonyFrame").attr('src', destination_list.ceremony.url)
 })
 
 $(document).on('click', "#rsvpButton", function(e) {
