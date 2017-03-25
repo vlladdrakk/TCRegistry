@@ -98,16 +98,17 @@ function createCategory(event) {
     url: "/categories",
     data: data,
     success: function(response) {
-      console.log("success");
+      $("#categoryModal").modal('hide');
+      $("#newCategoryName").val('');
+      $("#newCategoryDescription").val('');
+      window.location.reload();
     },
     error: function(error) {
       console.log(error);
+      alert("Something went horribly wrong, check the logs");
     }
   });
-  $("#categoryModal").modal('hide');
-  $("#newCategoryName").val('');
-  $("#newCategoryDescription").val('');
-  window.location.reload();
+  
 }
 
 function setEditFields(data) {
