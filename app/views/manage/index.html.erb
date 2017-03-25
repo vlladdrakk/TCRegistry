@@ -81,7 +81,7 @@
                 <h4 class="modal-title">Add New Item</h4>
               </div>
               <div class="modal-body">
-                <%= form_tag("/items", method: "post", multipart: true, action: :upload, id: "itemForm") do %>
+                <%= form_tag("/items", method: "post", multipart: true, action: :upload, id: "itemForm", :html => {autocomplete: "off"}) do %>
                   <div class="field">
                     <%= label_tag :name %><br>
                     <%= text_field_tag :name %>
