@@ -11,6 +11,8 @@ $(document).ready(function() {
 
   $("#receptionFrame").attr('src', destination_list.reception.url);
   $("#ceremonyFrame").attr('src', destination_list.ceremony.url)
+
+  $("#errorAlert").hide();
 })
 
 $(document).on('click', "#rsvpButton", function(e) {
