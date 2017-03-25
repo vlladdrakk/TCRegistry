@@ -19,17 +19,20 @@ function deleteCategory(entity) {
 }
 
 function deleteItem(element){
-  $.ajax({
-    url: "/item;",
-    method: "DELETE",
-    data: {"id": element.id},
-    success: function(result){
-      $("#item" + element.id).addClass("hidden");
-    },
-    error: function(result) {
-      console.log('Failure');
-    }
-  });
+  var confirmation = confirm("Are you sure you want to delete this item?");
+  if (confirmation) {
+    $.ajax({
+      url: "/items",
+      method: "DELETE",
+      data: {"id": element.id},
+      success: function(result){
+        $("#item" + element.id).addClass("hidden");
+      },
+      error: function(result) {
+        console.log('Failure');
+      }
+    });
+  }
 };
 
 function clickedCategory(e) {
