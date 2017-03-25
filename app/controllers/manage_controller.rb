@@ -1,5 +1,7 @@
 class ManageController < ApplicationController
   before_action :authenticate_admin!
+  skip_before_action :verify_authenticity_token
+
 
   def index
   	selection = params[:selection]
