@@ -44,7 +44,11 @@ class ItemsController < ApplicationController
       item = RegistryItem.find(id)
       current_needed = item.needed
       updated_needed = current_needed - 1
-      item.update(needed: updated_needed)
+      pledged = item.pledged + 1
+      item.update(
+        needed: updated_needed,
+        pledged: pledged
+      )
       render json: {
         needed: item.needed,
         code: "200",
