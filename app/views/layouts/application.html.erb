@@ -6,6 +6,10 @@
 
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag "https://cdn.ravenjs.com/3.12.1/raven.min.js" %>
+  <script type="text/javascript">
+      Raven.config('https://bc2314445c0e4b488b5e7b2fc04e7d09@sentry.io/149618').install();
+  </script>
 </head>
 
 <body>
