@@ -14,7 +14,7 @@ module TCRegistry
     config.action_dispatch.show_exceptions = false
     Raven.configure do |config|
       config.dsn = 'https://bc2314445c0e4b488b5e7b2fc04e7d09:31c782ab4b6645b294434826548fe519@sentry.io/149618'
-      config.environments = ['staging', 'production', 'development']
+      config.environments = ['staging', 'production']
     end
   end
 end
