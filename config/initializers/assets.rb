@@ -21,3 +21,4 @@ Rails.application.config.assets.precompile += %w( font-awesome/css/font-awesome.
 Rails.application.config.assets.precompile += %w( item.js )
 Rails.application.config.assets.precompile += %w( manage.css )
 Rails.application.config.assets.precompile += %w( items.css )
+Rails.application.config.assets.precompile += %w( rsvp.css )
