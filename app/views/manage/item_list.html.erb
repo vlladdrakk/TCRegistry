@@ -1,0 +1,63 @@
+<head>
+  <title>RSVP List</title>
+
+  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap Core CSS -->
+    <%= stylesheet_link_tag "bootstrap.min.css" %>
+    <%= stylesheet_link_tag "item_list" %>
+      <!-- jQuery -->
+    <%= javascript_include_tag "jquery.js" %>
+    <%= javascript_include_tag "bootstrap.min.js" %>
+</head>
+<body>
+  <div class="container">
+    <div class="col-xs-12">
+      <table id="itemTable">
+        <tr>
+          <th>
+            ID
+          </th>
+          <th>
+            Name
+          </th>
+          <th>
+            Needed
+          </th>
+          <th>
+            Claimed
+          </th>
+          <th>
+            Description
+          </th>
+          <th>
+            Category
+          </th>
+        </tr>
+        <% @item_list.each do |item| %>
+          <tr>
+            <td>
+              <span id="itemId-<%= item.id %>"><%= item.id %></span>
+            </td>
+            <td>
+              <span id="itemName-<%= item.id %>"><%= item.name %></span>
+            </td>
+            <td>
+              <span id="itemNeeded-<%= item.id %>"><%= item.needed %></span>
+            </td>
+            <td>
+              <span id="itemPledged-<%= item.id %>"><%= item.pledged %></span>
+            </td>
+            <td>
+              <span id="itemDescription-<%= item.id %>"><%= item.description %></span>
+            </td>
+            <td>
+              <span id="itemCategory-<%= item.id %>"><%= Category.find(item.category_id).name %></span>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</body>
