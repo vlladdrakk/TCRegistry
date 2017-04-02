@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   root to: 'manage#index'
 
   get 'manage' => 'manage#index'
+  get 'rsvps' => 'manage#rsvp'
 
   post 'categories' => 'categories#create'
   delete 'categories' => 'categories#destroy'
