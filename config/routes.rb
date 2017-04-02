@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   get 'manage' => 'manage#index'
   get 'rsvps' => 'manage#rsvp'
+  get 'item-list' => 'manage#list_all'
 
   post 'categories' => 'categories#create'
   delete 'categories' => 'categories#destroy'
