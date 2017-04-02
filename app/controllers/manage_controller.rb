@@ -85,6 +85,11 @@ class ManageController < ApplicationController
     end
   end
 
+  def rsvp
+    @rsvp_list = Rsvp.all
+    render "manage/rsvp_list"
+  end
+
   private
 
   def get_url_image image_url
