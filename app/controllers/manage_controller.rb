@@ -90,6 +90,11 @@ class ManageController < ApplicationController
     render "manage/rsvp_list"
   end
 
+  def list_all
+    @item_list = RegistryItem.all.order(:category_id)
+    render "manage/item_list"
+  end
+
   private
 
   def get_url_image image_url
