@@ -42,11 +42,14 @@
           <li>
             <a href="/">Home</a>
           </li>
-          <li>
-            <% if admin_signed_in? %>
-              <a href="/manage">Item Management</a>
-            <% end %>
-          </li>
+          <% if admin_signed_in? %>
+            <li>
+                <a href="/manage">Item Management</a>
+            </li>
+            <li>
+              <a href="/rsvps">RSVP List</a>
+            </li>
+          <% end %>
         </ul>
       </div>
       <div class="nav navbar-nav navbar-right">
