@@ -1,0 +1,51 @@
+<head>
+  <title>RSVP List</title>
+
+  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap Core CSS -->
+    <%= stylesheet_link_tag "bootstrap.min.css" %>
+    <%= stylesheet_link_tag "rsvp" %>
+      <!-- jQuery -->
+    <%= javascript_include_tag "jquery.js" %>
+    <%= javascript_include_tag "bootstrap.min.js" %>
+</head>
+<body>
+  <div class="container">
+    <div class="col-xs-12">
+      <table id="rsvpTable">
+        <tr>
+          <th>
+            ID
+          </th>
+          <th>
+            Attending
+          </th>
+          <th>
+            Comments
+          </th>
+          <th>
+            Created Date
+          </th>
+        </tr>
+        <% @rsvp_list.each do |rsvp| %>
+          <tr>
+            <td>
+              <span id="rsvpId"><%= rsvp.id %></span>
+            </td>
+            <td>
+              <span id="attending"><%= rsvp.attending %></span>
+            </td>
+            <td>
+              <span id="comment"><%= rsvp.comment %></span>
+            </td>
+            <td>
+              <span id="createdDate"><%= rsvp.created_at %></span>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</body>
