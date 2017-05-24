@@ -3,3 +3,5 @@ public/system/
 log/
 db/development.sqlite3
 log/development.log
+pictures/
+production.sqlite3
