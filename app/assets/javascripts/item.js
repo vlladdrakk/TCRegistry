@@ -18,8 +18,8 @@ function claimItem(element) {
       },
       success: function(response) {
         if (response.code !== "500") {
-          if (response.needed === 0) {
-            $("#item-" + item_id).addClass("hidden");
+          if (response.needed <=1) {
+            location.reload();
           } else {
             $("#needed-" + item_id).html(response.needed);
           }
