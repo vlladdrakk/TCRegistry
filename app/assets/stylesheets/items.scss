@@ -7,12 +7,18 @@
   overflow: hidden;
   float: left;
   width: 100%;
+  display: float;
 
   .item {
     display: inline-block;
     float: left;
     height: 450px;
     padding-bottom: 15px;
+
+    img.claimed {
+      opacity: 0.3;
+      background-color: #000;
+    }
 
     .thumbnail {
       height: 100%;
@@ -23,13 +29,16 @@
         object-fit: cover;
       }
 
+      .item-description {
+        display: inline-block;
+      }
+
       .item-name {
         font-weight: 700;
       }
 
       #itemControl {
         span {
-          margin-right: 5px;
           position: absolute;
           bottom: 25px;
         }
@@ -41,6 +50,21 @@
 
         .claim:hover {
           opacity: 1;
+        }
+      }
+
+      #itemControl.claimed {
+        margin-right: 5px;
+
+        .claim {
+          color: $primary-colour;
+          opacity: 0.7;
+        }
+
+        .claimed {
+          color: $primary-colour;
+          opacity: 0.7;
+          cursor: default;
         }
       }
     }

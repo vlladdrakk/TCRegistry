@@ -57,23 +57,46 @@
               <ul id="itemList">
                 <% if @items.nil? == false
   		            @items.each do |item|
-                    if item.needed > 0 %>
+                    if (item.needed - item.pledged) > 0 %>
                       <li id="item-<%= item.id %>" class="col-sm-4 col-lg-4 col-md-4 item">
                         <div class="thumbnail">
-                            <%= image_tag(item.picture)%>
+                          <%= image_tag(item.picture)%>
                           <div class="caption">
-                            <h5 class="pull-right">Needed: <span id="needed-<%= item.id %>"><%= item.needed - item.pledged %></span></h5>
+                            <h5 class="pull-right">
+                              Desired: <span id="needed-<%= item.id %>"><%= item.needed %></span><br>
+                              Claimed: <span id="pledged-<%= item.id %>"><%= item.pledged %></span>
+                            </h5>
+                            <h5 class="pull-right"></h5>
                             <h4 class="item-name">
                               <%= item.name %>
                             </h4>
-                            <p><%= item.description %></p>
+                            <p class="item-description"><%= item.description %></p>
                             <div id="itemControl" class="row text-center">
                               <span id="<%= item.id %>" onclick="claimItem(this)" class="close claim">I&apos;ll get this!</span>
                             </div>
                           </div>
                         </div>
                       </li>
-                    <% end
+                    <% else %>
+                      <li id="item-<%= item.id %>" class="col-sm-4 col-lg-4 col-md-4 item">
+                        <div class="thumbnail">
+                          <%= image_tag(item.picture, class: "claimed")%>
+                          <div class="caption">
+                            <h5 class="pull-right">
+                              Desired: <span id="needed-<%= item.id %>"><%= item.needed %></span><br>
+                              Claimed: <span id="pledged-<%= item.id %>"><%= item.pledged %></span>
+                            </h5>
+                            <h4 class="item-name">
+                              <%= item.name %>
+                            </h4>
+                            <p class="item-description"><%= item.description %></p>
+                            <div id="itemControl" class="row text-center claimed">
+                              <span id="<%= item.id %>" class="close claimed">I&apos;m claimed!</span>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                   <%end
                   end
 		            end %>
                 </ul>
