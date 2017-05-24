@@ -18,10 +18,11 @@ function claimItem(element) {
       },
       success: function(response) {
         if (response.code !== "500") {
-          if (response.needed <=1) {
+          if (response.remaining < 1) {
             location.reload();
           } else {
             $("#needed-" + item_id).html(response.needed);
+            $("#pledged-" + item_id).html(response.pledged);
           }
         } else {
           if (response.result === "Invalid Code") {
